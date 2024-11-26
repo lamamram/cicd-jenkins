@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
   # cidr = "24 (si masque réseau en 255.255.255.0)"
 
   [
-    ["jenkins.myusine.fr", "6144", "4", "mlamamra/debian12-plus"],
+    ["jenkins.myusine.fr", "6144", "4", "ml-registry/jenkins"],
   ].each do |vmname,mem,cpu,os|
     config.vm.define "#{vmname}" do |machine|
 
@@ -26,7 +26,7 @@ Vagrant.configure(2) do |config|
       machine.vm.box = "#{os}"
       machine.vm.hostname = "#{vmname}"
       machine.vm.network "public_network"
-      # machine.vm.network "public_network",bridge: "#{int}",
+      # machine.vm.network "public_network", bridge: "#{int}",
       #   ip: "#{ip}",
       #   netmask: "#{cidr}"
 	    machine.ssh.insert_key = false
