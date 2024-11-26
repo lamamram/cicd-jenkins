@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
   # cidr = "24 (si masque réseau en 255.255.255.0)"
 
   [
-    ["jenkins.myusine.fr", "6144", "2", "mlamamra/debian12-plus"],
+    ["jenkins.myusine.fr", "6144", "4", "mlamamra/debian12-plus"],
   ].each do |vmname,mem,cpu,os|
     config.vm.define "#{vmname}" do |machine|
 
