@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+      - "8443:8443"
+    networks:
+      - jenkins-net
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - ~/jenkins/certs:/var/jenkins_home/certs
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+      - JENKINS_OPTS=--httpPort=-1 --httpsPort=8443 --httpsKeyStore=/var/jenkins_home/certs/keystore.jks --httpsKeyStorePassword=password
+    extra_hosts:
+      - "jenkins.myusine.fr:172.20.0.1" 
+volumes:
+  jenkins_home:
+
+networks:
+  jenkins-net:
+    name: jenkins-net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1 
