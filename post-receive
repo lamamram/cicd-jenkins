@@ -1,0 +1,1 @@
+curl -u admin:roottoor -s -k -X POST https://jenkins.myusine.fr:8443/git/notifyCommit?url=git@jenkins.myusine.fr:dev.git&token=465d3a19b22575c99e0c0f4e433905e7

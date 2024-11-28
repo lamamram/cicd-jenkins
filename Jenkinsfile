@@ -17,6 +17,10 @@ pipeline {
         //     }
         // }
         stage('test') {
+            // label => selection d'un noeud "worker"
+            agent {
+                label 'agent'
+            }
             steps {
                 sh 'mvn test'
             }

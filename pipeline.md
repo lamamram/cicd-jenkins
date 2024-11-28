@@ -33,4 +33,4 @@
   - steps: sh 'mwn test' > puisque les plugins de rapports test / couverture dans le pom.xml
   - post: remontée des rapports
     + junit pour surefire
-    + recordCoverage pour jacoco 
+    + recordCoverage pour jacoco
