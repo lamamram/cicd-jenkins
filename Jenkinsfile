@@ -21,8 +21,15 @@ pipeline {
             agent {
                 label 'agent'
             }
+            // ici il faut enclencher le multithreading avec maven
+            // on pourrait avec un design !=
+            // parallel {
+            //     sh 'mvn test -Dmaven.IncludeTags=Unit'
+            //     sh 'mvn verify -Dmaven.ExcludeTags=Unit,E2E'
+            // } 
             steps {
-                sh 'mvn test'
+                sh 'mvn verify'
+                stash includes: 'target/site/jacoco-both/jacoco.xml', name: 'coverage'
             }
             post {
                 success {
@@ -30,6 +37,27 @@ pipeline {
                     recordCoverage(tools: [[parser: 'JACOCO']],
                         id: 'jacoco', name: 'JaCoCo Coverage',
                         sourceCodeRetention: 'EVERY_BUILD') 
+                }
+            }
+        }
+        stage('Quality') {
+            agent {
+                label 'agent'
+            }
+            steps {
+                withCredentials([
+                    string(credentialsId: 'sonar_token', variable: 'SONAR_TOKEN'),
+                ]) {
+                    unstash 'coverage'
+                    sh '''mvn compile sonar:sonar \
+                          -Dsonar.projectKey=dev \
+                          -Dsonar.host.url=http://jenkins.myusine.fr:9000 \
+                          -Dsonar.login=$SONAR_TOKEN \
+                          -Dsonar.java.binaries=target \
+                          -Dsonar.qualitygate.wait=true \
+                          -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco-both/jacoco.xml
+
+                   '''    
                 }
             }
         }

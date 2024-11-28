@@ -13,6 +13,8 @@ public class Hello {
 
   private int times = 1;
 
+  private int necessaryArgument = 2;
+
   /**
    * Set how many times "Hello!" should be said.
    *
