@@ -77,6 +77,16 @@ docker compose ps
     + username: **git**
     + contenu: de la clé privée `~/.ssh/jenkins` (côté host)
     + la passphrase: **roottoor**
+  - scrutation du dépôt
+    + version naïve: **Polling avec H/4 * * * ***
+    + version avec le git hook **post-receive à la fin du git push côté serveur** (cf infra)
+  - gestion du hook
+    + administrer Jenkins
+    + sécurité
+    + section "git notifyCommit"
+    + création d'un token
+    + pas de token côté git donc => `-Dhudson.plugins.git.GitStatus.NOTIFY_COMMIT_ACCESS_CONTROL=disabled` dans le conteneur jenkins
+
 
 ### Agent SSH
 
@@ -91,13 +101,16 @@ docker compose ps
   - création du Crédential dans Jenkins
   - création du conteneur agent docker
 
-  ```bash
-  docker run \
-  --name=agent -d \
-  --net jenkins-net \
-  -e "JENKINS_AGENT_SSH_PUBKEY=<pubkey_content>" \
-  jenkins/ssh-agent:alpine-jdk17
-  ```
+    + naïf : en expérimentation
+    ```bash
+    docker run \
+    --name=agent -d \
+    --net jenkins-net \
+    -e "JENKINS_AGENT_SSH_PUBKEY=<pubkey_content>" \
+    jenkins/ssh-agent:alpine-jdk17
+    ```
+    + ensuite on porte le conteneur en tant que service dans `compose.yml`
+
   - configuration de l'agent
     + Administrer Jenkins
     + nodes
