@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mvn formatter:format > /dev/null
+# remettre les modifs: corrections du formatter dans l'index
+# avant de committer
+git add .

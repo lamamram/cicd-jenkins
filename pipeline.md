@@ -40,6 +40,12 @@
 
 ### job qualité
 
+* automatiser le formatage du code selon les conventions d'éctirures spécifiées dans le manuel d'assurance qualité
+  - ajouter le plugin **maven-formatter** dans le pom.xml
+  - // le fichier de config `src/main/resources/formatter.xml`
+  - permet d'utiliser le goal `mvn formatter:format`
+  - automatiser avant les commits: `.git/hooks/pre-commit`
+
 * stage QUALITY
   - effectuer une analyse statique de code (SAST) Static Application Security Testing GRATUIT
   - vs DAST Dynamic => analyse *in vivo* / analyse de conformité aux standards PAYANT
@@ -101,6 +107,9 @@ docker run \
       - ajouter l'évaluation de la gate
       - transferer le rapport de couverture depuis le stage précedent avec
         + les directives **stash / unstash** 
+    
        
+
+
 
 
