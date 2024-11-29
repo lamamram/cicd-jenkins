@@ -131,6 +131,8 @@ docker compose ps
 *  donc tout stage utilisant un conteneur doit être initier par le manager
   - les agents ssh doivent être configuré pour être appeler explicitement dans le pipeline
     **noeud > configurer > utilisation > Réserver ce noeud pour les jobs ...**
+* maintenant, on peut utiliser la drirective `agent { docker }` dans le pipeline
+* le noeud jenkins doit posséder la CLI docker et un accès au démon (socker unix ou tcp) *cf compose.yml*
 
 ## SCHEMA COMPLET
 
