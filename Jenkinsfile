@@ -90,6 +90,11 @@ pipeline {
                    '''
                    // mvn clean test -Dgroups=E2E
             }
+            post {
+                always{
+                    cucumber fileIncludePattern: 'target/cucumber-reports/Cucumber.json'
+                }
+            }
         }
     }
 }

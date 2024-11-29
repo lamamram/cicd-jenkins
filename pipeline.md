@@ -131,7 +131,8 @@ docker run \
   - côté client selenium => utiiser le nom du conteneur
   - utiliser l'option **headless**
 
-* attention à la glue / le resourceclasspath dans cucumber
+* attention à la glue / le resourceclasspath dans `src/test/java/bdd/CucumberTest.java`
 
-
-end
+* rapports de tests
+  - spécifier les formats désirés dans `src/test/resources/junit-platform.properties`
+  - ajouter le plugin jenkins **Cucumber reports**
