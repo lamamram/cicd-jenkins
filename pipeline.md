@@ -109,7 +109,28 @@ docker run \
         + les directives **stash / unstash** 
     
        
+### job test interfaces
 
+* on va utiliser un conteneur dynamique avec 
+  - une image maven 
+  - dans le réseau docker de jenkins
+  - en partageant le dépôt de dépendance m2
+* on va ajouter un conteneur selenium `selenium/standalone-firefox:133.0-geckodriver-0.35` dans le réseau
 
+```bash
+docker run \
+       --name selenium \
+       -d --restart unless-stopped \
+       --net jenkins-net \
+       selenium/standalone-firefox:133.0-geckodriver-0.35
+```
+
+* avant de lancer les tests
+  - décompresser le driver dans le conteneur
+  - l'installer en exécution dans le PATH
+  - côté client selenium => utiiser le nom du conteneur
+  - utiliser l'option **headless**
+
+* attention à la glue / le resourceclasspath dans cucumber
 
 
