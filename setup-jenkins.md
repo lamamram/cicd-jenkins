@@ -123,6 +123,15 @@ docker compose ps
     + host: agent -> nom du conteneur = alias réseau sur le réseau interne 172.20.0.0/24
     + credential : jenkins
     + no HOst Key Confirmation
+
+### Agent Docker
+
+* ajouter les plugins **Docker & Docker pipeline**
+* WARNING: les agents ssh ne peuvent pas utiliser le plugin docker !!!
+*  donc tout stage utilisant un conteneur doit être initier par le manager
+  - les agents ssh doivent être configuré pour être appeler explicitement dans le pipeline
+    **noeud > configurer > utilisation > Réserver ce noeud pour les jobs ...**
+
 ## SCHEMA COMPLET
 
 ![](./schemas/schema-jenkins-docker.png)

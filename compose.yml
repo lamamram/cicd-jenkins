@@ -10,9 +10,18 @@ services:
       - "8443:8443"
     networks:
       - jenkins-net
+    # ici l'utilisateur jenkins a l'id 1000 dans le conteneur jenkins
+    # coup de bol l'utilisateur vagrant du host debian a le même id
+    # 996 est le GID du group docker installé avec docker
+    # permet l'accès au client et socker de docker dans le conteneur
+    user: "jenkins:996"
     volumes:
       - jenkins_home:/var/jenkins_home
       - ~/jenkins/certs:/var/jenkins_home/certs
+      ## pour utiliser docker comme agent => préférer un installation ROOTLESS !!!
+      # partager le démon docker
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false -Dhudson.plugins.git.GitStatus.NOTIFY_COMMIT_ACCESS_CONTROL=disabled
       # - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
